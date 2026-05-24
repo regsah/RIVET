@@ -7,6 +7,16 @@ typedef uint8_t bit_t;
 
 typedef struct
 {
+    bit_t bits[2];
+} bits2_t;
+
+typedef struct
+{
+    bit_t bits[4];
+} bits4_t;
+
+typedef struct
+{
     bit_t bits[8];
 } byte_t;
 
