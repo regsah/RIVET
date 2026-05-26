@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+int test_gates();
+
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \
         if ((expected) != (actual)) {                                   \

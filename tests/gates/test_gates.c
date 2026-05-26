@@ -76,16 +76,16 @@ int test_xnor()
     return fail_counter;
 }
 
-int main()
+int test_gates()
 {
-    int total_fail_counter = 0;
-    total_fail_counter += test_nand();
-    total_fail_counter += test_not();
-    total_fail_counter += test_and();
-    total_fail_counter += test_or();
-    total_fail_counter += test_xor();
-    total_fail_counter += test_nor();
-    total_fail_counter += test_xnor();
-    printf("Total gates tests failed: %d out of %d\n", total_fail_counter, 26);
-    return total_fail_counter;
+    int gates_fail_counter = 0;
+    gates_fail_counter += test_nand();
+    gates_fail_counter += test_not();
+    gates_fail_counter += test_and();
+    gates_fail_counter += test_or();
+    gates_fail_counter += test_xor();
+    gates_fail_counter += test_nor();
+    gates_fail_counter += test_xnor();
+    printf("Total gates tests failed: %d out of %d\n", gates_fail_counter, 26);
+    return gates_fail_counter;
 }
