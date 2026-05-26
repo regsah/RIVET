@@ -10,7 +10,7 @@
                 __FILE__, __LINE__,                                     \
                 (unsigned)(expected), (unsigned)(actual)                \
             );                                                          \
-            return -1;                                                  \
+            fail_counter++;                                             \
         }                                                               \
     } while (0)
         
