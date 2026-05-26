@@ -1,11 +1,13 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Itests
+CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/combinational -Itests
 
 TEST_SRC = \
 	src/gates/gates.c \
-	src/gates/combinational.c \
+	src/combinational/mux.c \
+	src/combinational/dmux.c \
 	tests/test.c \
-	tests/gates/test_gates.c
+	tests/gates/test_gates.c \
+	tests/combinational/test_mux.c \
 
 BUILD_DIR = build
 
