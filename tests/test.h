@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 int test_gates();
+int test_mux();
 
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \
