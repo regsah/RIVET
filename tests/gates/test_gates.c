@@ -1,4 +1,3 @@
-#include "gates.h"
 #include "test.h"
 
 int test_nand()

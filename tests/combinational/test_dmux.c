@@ -1,5 +1,4 @@
 #include "test.h"
-#include "combinational.h"
 
 int test_dmux2_1()
 {

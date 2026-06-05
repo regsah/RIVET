@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 
+#include "gates.h"
+#include "combinational.h"
+
 int test_gates();
 int test_mux();
 int test_dmux();
