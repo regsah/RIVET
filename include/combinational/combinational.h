@@ -3,6 +3,30 @@
 
 #include "gates.h"
 
+typedef struct
+{
+    bit_t sum;
+    bit_t carry;
+} adder_result_t;
+
+typedef struct
+{
+    bits2_t sum;
+    bit_t carry;
+} adder2_result_t;
+
+typedef struct
+{
+    bits4_t sum;
+    bit_t carry;
+} adder4_result_t;
+
+typedef struct
+{
+    byte_t sum;
+    bit_t carry;
+} adder8_result_t;
+
 bit_t mux2_1(bit_t i0, bit_t i1, bit_t s);
 bit_t mux4_1(bit_t i0, bit_t i1, bit_t i2, bit_t i3, bit_t s0, bit_t s1);
 bit_t mux8_1(byte_t I, bit_t s0, bit_t s1, bit_t s2);
