@@ -73,7 +73,7 @@ int test_dmux8_1()
     return fail_counter;
 }
 
-int test_mux()
+int test_dmux()
 {
     int dmux_fail_counter = 0;
     dmux_fail_counter += test_dmux2_1();
