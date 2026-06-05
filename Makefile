@@ -5,10 +5,12 @@ TEST_SRC = \
 	src/gates/gates.c \
 	src/combinational/mux.c \
 	src/combinational/dmux.c \
+	src/combinational/adder.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
-	tests/combinational/test_dmux.c
+	tests/combinational/test_dmux.c \
+	tests/combinational/test_adder.c
 
 BUILD_DIR = build
 

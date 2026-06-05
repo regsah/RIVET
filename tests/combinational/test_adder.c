@@ -105,6 +105,6 @@ int test_adder()
     fail_counter += test_adder2();
     fail_counter += test_adder4();
     fail_counter += test_adder8();
-    if (fail_counter > 0) printf("test_adder: %d tests failed\n", fail_counter);
+    printf("total adder tests failed: %d\n", fail_counter);
     return fail_counter;
 }
