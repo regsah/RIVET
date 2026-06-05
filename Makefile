@@ -8,6 +8,7 @@ TEST_SRC = \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
+	tests/combinational/test_dmux.c
 
 BUILD_DIR = build
 
