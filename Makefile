@@ -6,11 +6,13 @@ TEST_SRC = \
 	src/combinational/mux.c \
 	src/combinational/dmux.c \
 	src/combinational/adder.c \
+	src/combinational/decoder.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
 	tests/combinational/test_dmux.c \
-	tests/combinational/test_adder.c
+	tests/combinational/test_adder.c \
+	tests/combinational/test_decoder.c
 
 BUILD_DIR = build
 

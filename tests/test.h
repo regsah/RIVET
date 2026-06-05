@@ -7,6 +7,7 @@ int test_gates();
 int test_mux();
 int test_dmux();
 int test_adder();
+int test_decoder();
 
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \
