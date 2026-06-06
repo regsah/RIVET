@@ -19,5 +19,6 @@ bit_t xnor_gate(bit_t i0, bit_t i1);
 // AND
 bit_t and_gate3(bit_t i0, bit_t i1, bit_t i2);
 bit_t and_gate4(bit_t i0, bit_t i1, bit_t i2, bit_t i3);
+bit_t and_gate8(bit_t i0, bit_t i1, bit_t i2, bit_t i3, bit_t i4, bit_t i5, bit_t i6, bit_t i7);
 
 #endif // GATES_H

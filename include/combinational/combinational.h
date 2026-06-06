@@ -45,4 +45,14 @@ bits2_t decoder2(bit_t s);
 bits4_t decoder4(bit_t s0, bit_t s1);
 byte_t decoder8(bit_t s0, bit_t s1, bit_t s2);
 
+bit_t eq1(bit_t i0, bit_t i1);
+bit_t eq2(bits2_t I0, bits2_t I1);
+bit_t eq4(bits4_t I0, bits4_t I1);
+bit_t eq8(byte_t I0, byte_t I1);
+
+bit_t is_zero(bit_t i0);
+bit_t is_zero2(bits2_t I);
+bit_t is_zero4(bits4_t I);
+bit_t is_zero8(byte_t I);
+
 #endif // COMBINATIONAL_H
