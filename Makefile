@@ -2,7 +2,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/combinational -Itests
 
 TEST_SRC = \
-	src/gates/gates.c \
+	src/gates/nand.c \
+	src/gates/not.c \
+	src/gates/and.c \
+	src/gates/or.c \
+	src/gates/xor.c \
+	src/gates/nor.c \
+	src/gates/xnor.c \
 	src/combinational/mux.c \
 	src/combinational/dmux.c \
 	src/combinational/adder.c \
