@@ -8,6 +8,7 @@ int main()
     total_failures += test_dmux();
     total_failures += test_adder();
     total_failures += test_decoder();
+    total_failures += test_comparators();
     printf("Total failures: %d\n", total_failures);
     return total_failures;
 }
