@@ -5,6 +5,7 @@
 
 #include "gates.h"
 #include "combinational.h"
+#include "latch.h"
 
 int test_gates();
 int test_mux();
@@ -12,6 +13,7 @@ int test_dmux();
 int test_adder();
 int test_decoder();
 int test_comparators();
+int test_latch();
 
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \

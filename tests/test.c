@@ -9,6 +9,7 @@ int main()
     total_failures += test_adder();
     total_failures += test_decoder();
     total_failures += test_comparators();
+    total_failures += test_latch();
     printf("Total failures: %d\n", total_failures);
     return total_failures;
 }

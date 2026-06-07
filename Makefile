@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/combinational -Itests
+CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/combinational -Iinclude/sequential -Itests
 
 TEST_SRC = \
 	src/gates/nand.c \
@@ -14,13 +14,15 @@ TEST_SRC = \
 	src/combinational/adder.c \
 	src/combinational/decoder.c \
 	src/combinational/comparators.c \
+	src/sequential/latch.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
 	tests/combinational/test_dmux.c \
 	tests/combinational/test_adder.c \
 	tests/combinational/test_decoder.c \
-	tests/combinational/test_comparators.c
+	tests/combinational/test_comparators.c \
+	tests/sequential/test_latch.c
 
 BUILD_DIR = build
 
