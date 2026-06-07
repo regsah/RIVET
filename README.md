@@ -1,6 +1,6 @@
-# groundup-cpu
+# RIVET
 
-`groundup-cpu` is a bottom up computer systems project where the aim is to create a small machine from the first principles.
+`RIVET` is a bottom up computer systems project where the aim is to create a small machine from the first principles.
 
 
 ## Goals
