@@ -52,7 +52,7 @@ int test_d_latch_step()
 {
     int fail_counter = 0;
 
-    sr_latch_t latch = sr_latch_init(0);
+    d_latch_t latch = d_latch_init(0);
 
     latch = d_latch_step(latch, 1, 0);
     ASSERT_EQ_BIT(0, latch.q);
