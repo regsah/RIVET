@@ -15,6 +15,7 @@ TEST_SRC = \
 	src/combinational/decoder.c \
 	src/combinational/comparators.c \
 	src/sequential/latch.c \
+	src/sequential/flip-flop.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
@@ -22,7 +23,8 @@ TEST_SRC = \
 	tests/combinational/test_adder.c \
 	tests/combinational/test_decoder.c \
 	tests/combinational/test_comparators.c \
-	tests/sequential/test_latch.c
+	tests/sequential/test_latch.c \
+	tests/sequential/test_flip-flop.c
 
 BUILD_DIR = build
 
