@@ -7,6 +7,7 @@
 #include "combinational.h"
 #include "latch.h"
 #include "flip-flop.h"
+#include "register.h"
 
 int test_gates();
 int test_mux();
@@ -16,6 +17,7 @@ int test_decoder();
 int test_comparators();
 int test_latch();
 int test_flip_flop();
+int test_register();
 
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \

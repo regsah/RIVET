@@ -11,6 +11,7 @@ int main()
     total_failures += test_comparators();
     total_failures += test_latch();
     total_failures += test_flip_flop();
+    total_failures += test_register();
     printf("Total failures: %d\n", total_failures);
     return total_failures;
 }
