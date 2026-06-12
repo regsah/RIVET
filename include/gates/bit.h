@@ -20,6 +20,11 @@ typedef struct
     bit_t bits[8];
 } byte_t;
 
+typedef struct
+{
+    bit_t bits[32];
+} word_t;
+
 static inline int is_valid_bit(bit_t bit)
 {
     return bit == 1u || bit == 0u;
