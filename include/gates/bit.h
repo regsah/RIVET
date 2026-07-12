@@ -35,4 +35,6 @@ static inline bit_t normalize_bit(bit_t bit)
     return bit ? 1u : 0u;
 }
 
+static const word_t ZERO_WORD = {.bits = {0}};
+
 #endif // BIT_H
