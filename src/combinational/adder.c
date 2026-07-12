@@ -59,3 +59,40 @@ adder8_result_t adder8(byte_t I0, byte_t I1, bit_t carry)
     result.carry = bit7.carry;
     return result;
 }
+
+adder32_result_t adder32(word_t I0, word_t I1, bit_t carry)
+{
+    adder8_result_t byte0 = adder8(
+        (byte_t) {.bits = {I0.bits[0], I0.bits[1], I0.bits[2], I0.bits[3], I0.bits[4], I0.bits[5], I0.bits[6], I0.bits[7]}},
+        (byte_t) {.bits = {I1.bits[0], I1.bits[1], I1.bits[2], I1.bits[3], I1.bits[4], I1.bits[5], I1.bits[6], I1.bits[7]}},
+        carry
+    );
+
+    adder8_result_t byte1 = adder8(
+        (byte_t) {.bits = {I0.bits[8], I0.bits[9], I0.bits[10], I0.bits[11], I0.bits[12], I0.bits[13], I0.bits[14], I0.bits[15]}},
+        (byte_t) {.bits = {I1.bits[8], I1.bits[9], I1.bits[10], I1.bits[11], I1.bits[12], I1.bits[13], I1.bits[14], I1.bits[15]}},
+        byte0.carry
+    );
+
+    adder8_result_t byte2 = adder8(
+        (byte_t) {.bits = {I0.bits[16], I0.bits[17], I0.bits[18], I0.bits[19], I0.bits[20], I0.bits[21], I0.bits[22], I0.bits[23]}},
+        (byte_t) {.bits = {I1.bits[16], I1.bits[17], I1.bits[18], I1.bits[19], I1.bits[20], I1.bits[21], I1.bits[22], I1.bits[23]}},
+        byte1.carry
+    );
+
+    adder8_result_t byte3 = adder8(
+        (byte_t) {.bits = {I0.bits[24], I0.bits[25], I0.bits[26], I0.bits[27], I0.bits[28], I0.bits[29], I0.bits[30], I0.bits[31]}},
+        (byte_t) {.bits = {I1.bits[24], I1.bits[25], I1.bits[26], I1.bits[27], I1.bits[28], I1.bits[29], I1.bits[30], I1.bits[31]}},
+        byte2.carry
+    );
+
+    adder32_result_t result;
+    for (int bit = 0; bit < 8; bit++) {
+        result.sum.bits[bit] = byte0.sum.bits[bit];
+        result.sum.bits[bit + 8] = byte1.sum.bits[bit];
+        result.sum.bits[bit + 16] = byte2.sum.bits[bit];
+        result.sum.bits[bit + 24] = byte3.sum.bits[bit];
+    }
+    result.carry = byte3.carry;
+    return result;
+}
