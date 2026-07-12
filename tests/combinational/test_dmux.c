@@ -72,12 +72,33 @@ int test_dmux8_1()
     return fail_counter;
 }
 
+int test_dmux32_1()
+{
+    int fail_counter = 0;
+
+    for (int input = 0; input < 2; input++) {
+        for (int select = 0; select < 32; select++) {
+            word_t result = dmux32_1(
+                input, select & 1, (select >> 1) & 1, (select >> 2) & 1,
+                (select >> 3) & 1, (select >> 4) & 1
+            );
+            for (int bit = 0; bit < 32; bit++) {
+                ASSERT_EQ_BIT(bit == select ? input : 0, result.bits[bit]);
+            }
+        }
+    }
+
+    if (fail_counter > 0) printf("test_dmux32_1: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_dmux()
 {
     int dmux_fail_counter = 0;
     dmux_fail_counter += test_dmux2_1();
     dmux_fail_counter += test_dmux4_1();
     dmux_fail_counter += test_dmux8_1();
+    dmux_fail_counter += test_dmux32_1();
     printf("Total dmux tests failed: %d\n", dmux_fail_counter);
     return dmux_fail_counter;
 }

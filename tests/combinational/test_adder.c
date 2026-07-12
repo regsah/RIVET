@@ -1,5 +1,16 @@
 #include "test.h"
 
+#include <stdint.h>
+
+static word_t word_from_uint32(uint32_t value)
+{
+    word_t result;
+    for (int bit = 0; bit < 32; bit++) {
+        result.bits[bit] = (value >> bit) & 1u;
+    }
+    return result;
+}
+
 int test_half_adder()
 {
     int fail_counter = 0;
@@ -96,6 +107,28 @@ int test_adder8()
     return fail_counter;
 }
 
+int test_adder32()
+{
+    int fail_counter = 0;
+    uint32_t values[] = {0u, 1u, 0x12345678u, 0xFFFFFFFFu, 0x80000000u};
+
+    for (int i0 = 0; i0 < 5; i0++) {
+        for (int i1 = 0; i1 < 5; i1++) {
+            for (int carry = 0; carry < 2; carry++) {
+                uint64_t expected = (uint64_t)values[i0] + values[i1] + (uint32_t)carry;
+                adder32_result_t result = adder32(word_from_uint32(values[i0]), word_from_uint32(values[i1]), carry);
+                for (int bit = 0; bit < 32; bit++) {
+                    ASSERT_EQ_BIT((expected >> bit) & 1u, result.sum.bits[bit]);
+                }
+                ASSERT_EQ_BIT(expected >> 32, result.carry);
+            }
+        }
+    }
+
+    if (fail_counter > 0) printf("test_adder32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_adder()
 {
     int fail_counter = 0;
@@ -104,6 +137,7 @@ int test_adder()
     fail_counter += test_adder2();
     fail_counter += test_adder4();
     fail_counter += test_adder8();
+    fail_counter += test_adder32();
     printf("total adder tests failed: %d\n", fail_counter);
     return fail_counter;
 }

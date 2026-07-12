@@ -42,12 +42,31 @@ int test_decoder8()
     return fail_counter;
 }
 
+int test_decoder32()
+{
+    int fail_counter = 0;
+
+    for (int select = 0; select < 32; select++) {
+        word_t result = decoder32(
+            select & 1, (select >> 1) & 1, (select >> 2) & 1,
+            (select >> 3) & 1, (select >> 4) & 1
+        );
+        for (int bit = 0; bit < 32; bit++) {
+            ASSERT_EQ_BIT(bit == select, result.bits[bit]);
+        }
+    }
+
+    if (fail_counter > 0) printf("test_decoder32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_decoder()
 {
     int fail_counter = 0;
     fail_counter += test_decoder2();
     fail_counter += test_decoder4();
     fail_counter += test_decoder8();
+    fail_counter += test_decoder32();
     printf("total decoder tests failed: %d\n", fail_counter);
     return fail_counter;
 }

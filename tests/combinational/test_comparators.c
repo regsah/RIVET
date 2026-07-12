@@ -1,5 +1,16 @@
 #include "test.h"
 
+#include <stdint.h>
+
+static word_t word_from_uint32(uint32_t value)
+{
+    word_t result;
+    for (int bit = 0; bit < 32; bit++) {
+        result.bits[bit] = (value >> bit) & 1u;
+    }
+    return result;
+}
+
 int test_eq1()
 {
     int fail_counter = 0;
@@ -70,6 +81,21 @@ int test_eq8()
     return fail_counter;
 }
 
+int test_eq32()
+{
+    int fail_counter = 0;
+    uint32_t values[] = {0u, 1u, 0x12345678u, 0x87654321u, 0xFFFFFFFFu};
+
+    for (int i0 = 0; i0 < 5; i0++) {
+        for (int i1 = 0; i1 < 5; i1++) {
+            ASSERT_EQ_BIT(values[i0] == values[i1], eq32(word_from_uint32(values[i0]), word_from_uint32(values[i1])));
+        }
+    }
+
+    if (fail_counter > 0) printf("test_eq32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_is_zero()
 {
     int fail_counter = 0;
@@ -121,6 +147,19 @@ int test_is_zero8()
     return fail_counter;
 }
 
+int test_is_zero32()
+{
+    int fail_counter = 0;
+    uint32_t values[] = {0u, 1u, 0x80000000u, 0xFFFFFFFFu};
+
+    for (int value = 0; value < 4; value++) {
+        ASSERT_EQ_BIT(values[value] == 0, is_zero32(word_from_uint32(values[value])));
+    }
+
+    if (fail_counter > 0) printf("test_is_zero32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_comparators()
 {
     int fail_counter = 0;
@@ -128,10 +167,12 @@ int test_comparators()
     fail_counter += test_eq2();
     fail_counter += test_eq4();
     fail_counter += test_eq8();
+    fail_counter += test_eq32();
     fail_counter += test_is_zero();
     fail_counter += test_is_zero2();
     fail_counter += test_is_zero4();
     fail_counter += test_is_zero8();
+    fail_counter += test_is_zero32();
     printf("total comparator tests failed: %d\n", fail_counter);
     return fail_counter;
 }
