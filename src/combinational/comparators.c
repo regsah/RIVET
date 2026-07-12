@@ -37,6 +37,15 @@ bit_t eq8(byte_t I0, byte_t I1)
     );
 }
 
+bit_t eq32(word_t I0, word_t I1)
+{
+    word_t comparison;
+    for (int bit = 0; bit < 32; bit++) {
+        comparison.bits[bit] = eq1(I0.bits[bit], I1.bits[bit]);
+    }
+    return and_gate32(comparison);
+}
+
 bit_t is_zero(bit_t i0)
 {
     return eq1(i0, 0);
@@ -55,4 +64,9 @@ bit_t is_zero4(bits4_t I)
 bit_t is_zero8(byte_t I)
 {
     return eq8(I, (byte_t) {.bits = {0, 0, 0, 0, 0, 0, 0, 0}});
+}
+
+bit_t is_zero32(word_t I)
+{
+    return eq32(I, ZERO_WORD);
 }
