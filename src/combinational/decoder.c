@@ -2,36 +2,20 @@
 
 bits2_t decoder2(bit_t s)
 {
-    bits2_t result = { .bits = {not_gate(s), s} };
-    return result;
+    return dmux2_1(1, s);
 }
 
 bits4_t decoder4(bit_t s0, bit_t s1)
 {
-    bits4_t result = { 
-        .bits = {
-            and_gate(not_gate(s1), not_gate(s0)),
-            and_gate(not_gate(s1), s0),
-            and_gate(s1, not_gate(s0)),
-            and_gate(s1, s0)
-        }
-    };
-    return result;
+    return dmux4_1(1, s0, s1);
 }
 
 byte_t decoder8(bit_t s0, bit_t s1, bit_t s2)
 {
-    byte_t result = { 
-        .bits = {
-            and_gate(and_gate(not_gate(s2), not_gate(s1)), not_gate(s0)),
-            and_gate(and_gate(not_gate(s2), not_gate(s1)), s0),
-            and_gate(and_gate(not_gate(s2), s1), not_gate(s0)),
-            and_gate(and_gate(not_gate(s2), s1), s0),
-            and_gate(and_gate(s2, not_gate(s1)), not_gate(s0)),
-            and_gate(and_gate(s2, not_gate(s1)), s0),
-            and_gate(and_gate(s2, s1), not_gate(s0)),
-            and_gate(and_gate(s2, s1), s0)
-        }
-    };
-    return result;
+    return dmux8_1(1, s0, s1, s2);
+}
+
+word_t decoder32(bit_t s0, bit_t s1, bit_t s2, bit_t s3, bit_t s4)
+{
+    return dmux32_1(1, s0, s1, s2, s3, s4);
 }
