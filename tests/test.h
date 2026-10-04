@@ -8,6 +8,7 @@
 #include "latch.h"
 #include "flip-flop.h"
 #include "register.h"
+#include "register-file.h"
 
 int test_gates();
 int test_mux();
@@ -18,6 +19,7 @@ int test_comparators();
 int test_latch();
 int test_flip_flop();
 int test_register();
+int test_register_file(void);
 
 #define ASSERT_EQ_BIT(expected, actual)                                 \
     do {                                                                \

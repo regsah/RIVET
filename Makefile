@@ -17,6 +17,7 @@ TEST_SRC = \
 	src/sequential/latch.c \
 	src/sequential/flip-flop.c \
 	src/sequential/register.c \
+	src/sequential/register-file.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/combinational/test_mux.c \
@@ -26,7 +27,8 @@ TEST_SRC = \
 	tests/combinational/test_comparators.c \
 	tests/sequential/test_latch.c \
 	tests/sequential/test_flip-flop.c \
-	tests/sequential/test_register.c
+	tests/sequential/test_register.c \
+	tests/sequential/test_register-file.c
 
 BUILD_DIR = build
 
