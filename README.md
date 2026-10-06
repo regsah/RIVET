@@ -82,6 +82,9 @@ Makefile    Build and test commands
 
 ## Roadmap
 
+See the [RV32I instruction checklist](docs/rv32i.md) for encodings, behavior,
+required circuits, implementation status, and planned tests.
+
 - [x] Logic components
 - [x] Combinational components
 - [x] Sequential latch primitives
