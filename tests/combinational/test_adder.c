@@ -129,6 +129,49 @@ int test_adder32()
     return fail_counter;
 }
 
+static int check_add_sub32(uint32_t i0, uint32_t i1, bit_t subtract)
+{
+    int fail_counter = 0;
+    uint32_t expected = subtract ? i0 - i1 : i0 + i1;
+    bit_t expected_carry = subtract ? i0 >= i1 : ((uint64_t)i0 + i1) >> 32;
+    adder32_result_t result = add_sub32(word_from_uint32(i0), word_from_uint32(i1), subtract);
+
+    for (int bit = 0; bit < 32; bit++) {
+        ASSERT_EQ_BIT((expected >> bit) & 1u, result.sum.bits[bit]);
+    }
+    ASSERT_EQ_BIT(expected_carry, result.carry);
+    return fail_counter;
+}
+
+int test_add_sub32()
+{
+    int fail_counter = 0;
+    uint32_t values[] = {
+        0u, 1u, 2u, 0xFFu, 0x100u, 0xFFFFu, 0x10000u,
+        0xFFFFFFu, 0x1000000u, 0x7FFFFFFFu, 0x80000000u,
+        0xFFFFFFFFu, 0xAAAAAAAAu, 0x55555555u, 0x12345678u
+    };
+
+    for (size_t i0 = 0; i0 < sizeof(values) / sizeof(values[0]); i0++) {
+        for (size_t i1 = 0; i1 < sizeof(values) / sizeof(values[0]); i1++) {
+            for (int subtract = 0; subtract < 2; subtract++) {
+                fail_counter += check_add_sub32(values[i0], values[i1], subtract);
+            }
+        }
+    }
+
+    for (int bit = 0; bit < 32; bit++) {
+        uint32_t boundary = UINT32_C(1) << bit;
+        fail_counter += check_add_sub32(boundary - 1u, 1u, 0);
+        fail_counter += check_add_sub32(boundary, 1u, 1);
+        fail_counter += check_add_sub32(0u, boundary, 1);
+        fail_counter += check_add_sub32(boundary, boundary, 1);
+    }
+
+    if (fail_counter > 0) printf("test_add_sub32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_adder()
 {
     int fail_counter = 0;
@@ -138,6 +181,7 @@ int test_adder()
     fail_counter += test_adder4();
     fail_counter += test_adder8();
     fail_counter += test_adder32();
+    fail_counter += test_add_sub32();
     printf("total adder tests failed: %d\n", fail_counter);
     return fail_counter;
 }

@@ -36,7 +36,7 @@ reference calculations.
 | 32-bit addition | Implemented, unit tested | `adder32` in `src/combinational/adder.c` |
 | 32-bit equality and zero detection | Implemented, unit tested | `eq32`, `is_zero32` |
 | Registers and register file | Implemented, unit tested | `src/sequential/register.c`, `register-file.c` |
-| Shared add/subtract circuit | Pending | Conditional inversion of B and carry-in |
+| Shared add/subtract circuit | Implemented, unit tested | `add_sub32` in `src/combinational/adder.c` |
 | Word bitwise operations | Pending | 32 parallel pairs of existing gates |
 | Variable shifts | Pending | Mux stages for shifts of 1, 2, 4, 8, and 16 |
 | Signed/unsigned less-than | Pending | Comparator circuits |
@@ -48,6 +48,13 @@ reference calculations.
 
 `and_gate32` reduces 32 inputs to one bit. A word-wide bitwise AND instead
 uses 32 two-input AND gates, producing 32 output bits.
+
+`add_sub32(A, B, subtract)` uses XOR gates to conditionally invert B and
+passes `subtract` as the carry-in to `adder32`. Control 0 computes A+B;
+control 1 computes A-B. The low 32 result bits are returned in `.sum` for
+both operations. `.carry` is the raw adder carry-out: in subtraction mode,
+1 means no unsigned borrow and 0 means a borrow occurred. It is not a signed
+overflow flag or architectural CPU state.
 
 An existing circuit does not mean an instruction is implemented. Every
 instruction below is currently **Pending**: there is no instruction decoder or

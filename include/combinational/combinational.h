@@ -49,6 +49,7 @@ adder2_result_t adder2(bits2_t I0, bits2_t I1, bit_t carry);
 adder4_result_t adder4(bits4_t I0, bits4_t I1, bit_t carry);
 adder8_result_t adder8(byte_t I0, byte_t I1, bit_t carry);
 adder32_result_t adder32(word_t I0, word_t I1, bit_t carry);
+adder32_result_t add_sub32(word_t I0, word_t I1, bit_t subtract);
 
 bits2_t decoder2(bit_t s);
 bits4_t decoder4(bit_t s0, bit_t s1);

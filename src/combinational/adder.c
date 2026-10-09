@@ -96,3 +96,12 @@ adder32_result_t adder32(word_t I0, word_t I1, bit_t carry)
     result.carry = byte3.carry;
     return result;
 }
+
+adder32_result_t add_sub32(word_t I0, word_t I1, bit_t subtract)
+{
+    word_t operand;
+    for (int bit = 0; bit < 32; bit++) {
+        operand.bits[bit] = xor_gate(I1.bits[bit], subtract);
+    }
+    return adder32(I0, operand, subtract);
+}
