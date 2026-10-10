@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/combinational -Iinclude/sequential -Itests
+CFLAGS = -Wall -Wextra -Werror -Iinclude/gates -Iinclude/bitwise -Iinclude/combinational -Iinclude/sequential -Itests
 
 TEST_SRC = \
 	src/gates/nand.c \
@@ -9,6 +9,9 @@ TEST_SRC = \
 	src/gates/xor.c \
 	src/gates/nor.c \
 	src/gates/xnor.c \
+	src/bitwise/and.c \
+	src/bitwise/or.c \
+	src/bitwise/xor.c \
 	src/combinational/mux.c \
 	src/combinational/dmux.c \
 	src/combinational/adder.c \
@@ -20,6 +23,7 @@ TEST_SRC = \
 	src/sequential/register-file.c \
 	tests/test.c \
 	tests/gates/test_gates.c \
+	tests/bitwise/test_bitwise.c \
 	tests/combinational/test_mux.c \
 	tests/combinational/test_dmux.c \
 	tests/combinational/test_adder.c \

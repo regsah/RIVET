@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "gates.h"
+#include "bitwise.h"
 #include "combinational.h"
 #include "latch.h"
 #include "flip-flop.h"
@@ -11,6 +12,7 @@
 #include "register-file.h"
 
 int test_gates();
+int test_bitwise(void);
 int test_mux();
 int test_dmux();
 int test_adder();

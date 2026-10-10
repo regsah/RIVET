@@ -37,7 +37,7 @@ reference calculations.
 | 32-bit equality and zero detection | Implemented, unit tested | `eq32`, `is_zero32` |
 | Registers and register file | Implemented, unit tested | `src/sequential/register.c`, `register-file.c` |
 | Shared add/subtract circuit | Implemented, unit tested | `add_sub32` in `src/combinational/adder.c` |
-| Word bitwise operations | Pending | 32 parallel pairs of existing gates |
+| Word bitwise operations | Implemented, unit tested | `bitwise_and32`, `bitwise_or32`, `bitwise_xor32` in `src/bitwise/` |
 | Variable shifts | Pending | Mux stages for shifts of 1, 2, 4, 8, and 16 |
 | Signed/unsigned less-than | Pending | Comparator circuits |
 | ALU result selection | Pending | Word-wide mux arrangement |
@@ -47,7 +47,10 @@ reference calculations.
 | CPU execution and environment events | Pending | State composition and execution boundary |
 
 `and_gate32` reduces 32 inputs to one bit. A word-wide bitwise AND instead
-uses 32 two-input AND gates, producing 32 output bits.
+uses 32 two-input AND gates, producing 32 output bits. The word operations
+have their own header, `include/bitwise/bitwise.h`, and use the `bitwise_`
+prefix to distinguish them from multi-input gates. Each takes two words and
+returns one word, applying the corresponding existing gate to each bit pair.
 
 `add_sub32(A, B, subtract)` uses XOR gates to conditionally invert B and
 passes `subtract` as the carry-in to `adder32`. Control 0 computes A+B;
