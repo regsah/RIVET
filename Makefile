@@ -12,6 +12,7 @@ TEST_SRC = \
 	src/bitwise/and.c \
 	src/bitwise/or.c \
 	src/bitwise/xor.c \
+	src/bitwise/shifts.c \
 	src/combinational/mux.c \
 	src/combinational/dmux.c \
 	src/combinational/adder.c \
@@ -24,6 +25,7 @@ TEST_SRC = \
 	tests/test.c \
 	tests/gates/test_gates.c \
 	tests/bitwise/test_bitwise.c \
+	tests/bitwise/test_shifts.c \
 	tests/combinational/test_mux.c \
 	tests/combinational/test_dmux.c \
 	tests/combinational/test_adder.c \

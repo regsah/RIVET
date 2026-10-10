@@ -18,6 +18,7 @@ Currently implemented:
 - Basic bit types and fixed-width bit containers
 - Logic gates built from lower-level primitives
 - Word-wide bitwise AND, OR, and XOR built from individual gates in `src/bitwise/`
+- 32-bit logical left shifter built from mux stages
 - Combinational components, including muxes, demuxes, decoders, adders, and
   equality checks
 - Sequential latch primitives

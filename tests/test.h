@@ -13,6 +13,7 @@
 
 int test_gates();
 int test_bitwise(void);
+int test_shifts(void);
 int test_mux();
 int test_dmux();
 int test_adder();
