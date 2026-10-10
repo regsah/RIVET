@@ -51,3 +51,8 @@ word_t bitwise_srl32(word_t I, bit_t s0, bit_t s1, bit_t s2, bit_t s3, bit_t s4)
 {
     return shift_right_stages(I, 0, s0, s1, s2, s3, s4);
 }
+
+word_t bitwise_sra32(word_t I, bit_t s0, bit_t s1, bit_t s2, bit_t s3, bit_t s4)
+{
+    return shift_right_stages(I, I.bits[31], s0, s1, s2, s3, s4);
+}

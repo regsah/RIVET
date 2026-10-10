@@ -22,12 +22,18 @@ static int check_shifts32(uint32_t value, int amount)
     bit_t s4 = (amount >> 4) & 1;
     word_t left = bitwise_sll32(input, s0, s1, s2, s3, s4);
     word_t right = bitwise_srl32(input, s0, s1, s2, s3, s4);
+    word_t arithmetic = bitwise_sra32(input, s0, s1, s2, s3, s4);
     uint32_t expected_left = value << amount;
     uint32_t expected_right = value >> amount;
+    uint32_t expected_arithmetic = expected_right;
+    if (amount > 0 && (value & UINT32_C(0x80000000))) {
+        expected_arithmetic |= UINT32_MAX << (32 - amount);
+    }
 
     for (int bit = 0; bit < 32; bit++) {
         ASSERT_EQ_BIT((expected_left >> bit) & 1u, left.bits[bit]);
         ASSERT_EQ_BIT((expected_right >> bit) & 1u, right.bits[bit]);
+        ASSERT_EQ_BIT((expected_arithmetic >> bit) & 1u, arithmetic.bits[bit]);
     }
     return fail_counter;
 }
