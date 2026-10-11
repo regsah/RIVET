@@ -62,6 +62,9 @@ bit_t eq4(bits4_t I0, bits4_t I1);
 bit_t eq8(byte_t I0, byte_t I1);
 bit_t eq32(word_t I0, word_t I1);
 
+bit_t lt32_unsigned(word_t I0, word_t I1);
+bit_t lt32_signed(word_t I0, word_t I1);
+
 bit_t is_zero(bit_t i0);
 bit_t is_zero2(bits2_t I);
 bit_t is_zero4(bits4_t I);

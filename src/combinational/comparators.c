@@ -46,6 +46,19 @@ bit_t eq32(word_t I0, word_t I1)
     return and_gate32(comparison);
 }
 
+bit_t lt32_unsigned(word_t I0, word_t I1)
+{
+    adder32_result_t difference = add_sub32(I0, I1, 1);
+    return not_gate(difference.carry);
+}
+
+bit_t lt32_signed(word_t I0, word_t I1)
+{
+    adder32_result_t difference = add_sub32(I0, I1, 1);
+    bit_t different_signs = xor_gate(I0.bits[31], I1.bits[31]);
+    return mux2_1(difference.sum.bits[31], I0.bits[31], different_signs);
+}
+
 bit_t is_zero(bit_t i0)
 {
     return eq1(i0, 0);

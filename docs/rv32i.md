@@ -39,7 +39,7 @@ reference calculations.
 | Shared add/subtract circuit | Implemented, unit tested | `add_sub32` in `src/combinational/adder.c` |
 | Word bitwise operations | Implemented, unit tested | `bitwise_and32`, `bitwise_or32`, `bitwise_xor32` in `src/bitwise/` |
 | Variable shifts | Implemented, unit tested | `bitwise_sll32`, `bitwise_srl32`, `bitwise_sra32` in `src/bitwise/shifts.c` |
-| Signed/unsigned less-than | Pending | Comparator circuits |
+| Signed/unsigned less-than | Implemented, unit tested | `lt32_signed`, `lt32_unsigned` in `src/combinational/comparators.c` |
 | ALU result selection | Pending | Word-wide mux arrangement |
 | Instruction decode and immediates | Pending | Field wiring, validity checks, control signals |
 | Program counter and next-PC selection | Pending | Register, adders, muxes, alignment checks |
@@ -65,6 +65,13 @@ control 1 computes A-B. The low 32 result bits are returned in `.sum` for
 both operations. `.carry` is the raw adder carry-out: in subtraction mode,
 1 means no unsigned borrow and 0 means a borrow occurred. It is not a signed
 overflow flag or architectural CPU state.
+
+`lt32_unsigned(A, B)` subtracts B from A and inverts the carry-out to detect
+an unsigned borrow. `lt32_signed(A, B)` uses XOR to detect differing sign bits:
+a mux selects A's sign when they differ, or the difference's sign when they
+match. This avoids interpreting an overflowed difference as the signed ordering.
+Both return a single bit. Instruction-level set-less-than results will place
+that bit in bit 0 of an otherwise zero word.
 
 An existing circuit does not mean an instruction is implemented. Every
 instruction below is currently **Pending**: there is no instruction decoder or

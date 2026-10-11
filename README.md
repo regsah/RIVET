@@ -21,6 +21,7 @@ Currently implemented:
 - 32-bit logical left/right and arithmetic right shifters built from mux stages
 - Combinational components, including muxes, demuxes, decoders, adders, and
   equality checks
+- 32-bit signed and unsigned less-than comparators built from the subtractor and gates
 - Sequential latch primitives
 - Flip-flops, 32-bit registers, and a register file with mux-based reads and decoded writes
 - Unit tests for core components

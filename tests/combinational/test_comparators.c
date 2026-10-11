@@ -160,6 +160,45 @@ int test_is_zero32()
     return fail_counter;
 }
 
+static int check_lt32(int64_t i0, int64_t i1)
+{
+    int fail_counter = 0;
+    word_t input0 = word_from_uint32((uint32_t)i0);
+    word_t input1 = word_from_uint32((uint32_t)i1);
+    ASSERT_EQ_BIT((uint32_t)i0 < (uint32_t)i1, lt32_unsigned(input0, input1));
+    ASSERT_EQ_BIT(i0 < i1, lt32_signed(input0, input1));
+    return fail_counter;
+}
+
+int test_lt32()
+{
+    int fail_counter = 0;
+    int64_t values[] = {
+        0, 1, -1, 2, -2, 255, -255, 256, -256,
+        65535, -65535, 65536, -65536, 0x12345678, -0x12345678,
+        INT32_MIN, INT32_MIN + 1, INT32_MAX - 1, INT32_MAX
+    };
+
+    for (size_t i0 = 0; i0 < sizeof(values) / sizeof(values[0]); i0++) {
+        for (size_t i1 = 0; i1 < sizeof(values) / sizeof(values[0]); i1++) {
+            fail_counter += check_lt32(values[i0], values[i1]);
+        }
+    }
+
+    for (int bit = 0; bit < 31; bit++) {
+        int64_t boundary = INT64_C(1) << bit;
+        fail_counter += check_lt32(boundary - 1, boundary);
+        fail_counter += check_lt32(boundary, boundary - 1);
+        fail_counter += check_lt32(-boundary, -boundary + 1);
+        fail_counter += check_lt32(-boundary + 1, -boundary);
+        fail_counter += check_lt32(-boundary, boundary);
+        fail_counter += check_lt32(boundary, -boundary);
+    }
+
+    if (fail_counter > 0) printf("test_lt32: %d tests failed\n", fail_counter);
+    return fail_counter;
+}
+
 int test_comparators()
 {
     int fail_counter = 0;
@@ -168,6 +207,7 @@ int test_comparators()
     fail_counter += test_eq4();
     fail_counter += test_eq8();
     fail_counter += test_eq32();
+    fail_counter += test_lt32();
     fail_counter += test_is_zero();
     fail_counter += test_is_zero2();
     fail_counter += test_is_zero4();
