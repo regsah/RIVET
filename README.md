@@ -13,6 +13,11 @@ The project favors clarity over completeness. The goal is to make the path from 
 
 RIVET is under active development.
 
+The reusable ALU and register components are implemented and unit tested.
+The next milestone is instruction field wiring and immediate generation,
+followed by instruction decoding and CPU integration. RIVET cannot yet fetch
+or execute instructions; the instruction checklist remains pending at that level.
+
 Currently implemented:
 
 - Basic bit types and fixed-width bit containers
@@ -30,10 +35,10 @@ Currently implemented:
 
 Planned:
 
-- Wider word-level components
+- Instruction field wiring and immediate generation
+- Decode/control circuits and operand/writeback selection
+- Program counter and branch/jump control
 - Memory model
-- RV32I instruction representation
-- RV32I instruction decoding
 - Fetch-decode-execute loop
 - Assembly-level test programs
 - Simple tracing or debugging utilities
@@ -95,11 +100,25 @@ required circuits, implementation status, and planned tests.
 - [x] Unit test structure
 - [x] Word-level data structures
 - [x] Register file
+- [x] Word-wide bitwise operations and shifters
+- [x] Signed and unsigned comparisons
+- [x] 32-bit ALU and result selection
+- [ ] Instruction field wiring
+- [ ] I/S/B/U/J immediate generation
+- [ ] RV32I decoder and control signals
+- [ ] Operand and writeback selection
+- [ ] Program counter and branch/jump control
 - [ ] Memory model
-- [ ] RV32I instruction representation
-- [ ] RV32I decoder
 - [ ] Fetch-decode-execute loop
+- [ ] Environment events and fault reporting
 - [ ] Assembly program execution
+
+The next checkpoint is a tested instruction-fields/immediates component:
+fixed connections extract the instruction fields and reconstruct immediate
+words, including sign extension and the rearranged branch/jump offsets.
+This component will feed the decoder without selecting or executing instructions
+itself. The [instruction checklist](docs/rv32i.md#next-milestone-fields-and-immediates)
+defines its acceptance checks.
 
 The register file contains 32 flip-flop-based 32-bit registers. Read addresses
 use five selector bits with `s0` as the least-significant bit; call

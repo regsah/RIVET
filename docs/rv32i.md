@@ -41,10 +41,51 @@ reference calculations.
 | Variable shifts | Implemented, unit tested | `bitwise_sll32`, `bitwise_srl32`, `bitwise_sra32` in `src/bitwise/shifts.c` |
 | Signed/unsigned less-than | Implemented, unit tested | `lt32_signed`, `lt32_unsigned` in `src/combinational/comparators.c` |
 | ALU result selection | Implemented, unit tested | `alu32` in `src/combinational/alu.c` |
-| Instruction decode and immediates | Pending | Field wiring, validity checks, control signals |
+| Instruction field wiring | Next milestone | Opcode, register-address, and function-field connections |
+| Immediate generation | Next milestone | I/S/B/U/J reconstruction and shift-amount wiring |
+| Instruction decode and control | Pending | Recognize supported encodings, validate fields, generate control signals |
+| Operand and writeback selection | Pending | Connect register, immediate, PC, ALU, and later memory paths |
 | Program counter and next-PC selection | Pending | Register, adders, muxes, alignment checks |
 | RAM and load/store interface | Pending | Array storage, access widths, extension, faults |
 | CPU execution and environment events | Pending | State composition and execution boundary |
+
+The project has a tested computation/storage foundation, but no complete
+instruction execution path. Do not measure completion by counting component
+rows: instruction decoding, state integration, memory, faults, and program
+tests account for substantial work beyond the ALU. All 40 instruction rows
+remain pending until their instruction-level milestones are met.
+
+## Next milestone: fields and immediates
+
+Build a combinational component that receives an instruction word and exposes
+its opcode, register-address fields, function fields, immediate candidates,
+and shift amount as bits/bit containers. Field extraction is fixed wiring;
+immediate construction uses fixed connections, constants, and sign replication.
+Keep the existing least-significant-bit-first convention.
+
+This component supplies field values and candidate operands. Recognizing an
+instruction, deciding which fields are meaningful, checking its encoding, and
+selecting the appropriate immediate belong to the subsequent decoder/control
+milestone. An exposed `rs2` bit slice, for example, is not a register source
+for every instruction format.
+
+Acceptance checks:
+
+- Walk individual instruction bits and verify each field's width and ordering.
+- Check I/S/B/U/J candidates against independently encoded examples and boundary
+  values, including zero, negative immediates, and the most positive offsets.
+- Verify sign replication, U-immediate low zeros, and B/J offset low zeros.
+- Verify branch/jump bit rearrangement without applying a second scaling shift.
+- Expose the five shift-amount bits independently of operation selection.
+- Keep tests at the field/immediate level; full instruction execution is a
+  later integration test.
+
+The [formats and immediates](#formats-and-immediates) table below defines the
+connections. After this checkpoint, add recognition/control circuits and tests
+for supported and neighboring unsupported encodings. Only then connect the
+register file, ALU, PC, and writeback into instruction execution.
+
+## Existing component interfaces
 
 `and_gate32` reduces 32 inputs to one bit. A word-wide bitwise AND instead
 uses 32 two-input AND gates, producing 32 output bits. The word operations
@@ -317,17 +358,17 @@ field checks. The exact unsupported/reserved-encoding policy is still open.
 
 ## Build and verification order
 
-1. Build the shared add/subtract circuit using conditional XOR inversion and
-   carry-in. Test subtraction, carry chains, and wraparound.
-2. Add word bitwise operations, mux-based shifters, and signed/unsigned
-   comparisons. Assemble the ALU result-selection network.
-3. Wire instruction fields and all immediate formats. Test each immediate bit,
-   sign boundary, and supported opcode/function combination independently.
-4. Add the PC and combine decode, register reads, ALU, and writeback. Execute
-   arithmetic instructions before introducing control transfers.
-5. Add branch/jump target selection and alignment outcomes.
-6. Define the RAM/environment decisions, then add loads, stores, and events.
-7. Run encoded instruction programs and check complete state transitions.
+- [x] Build and test add/subtract, bitwise operations, shifts, and comparisons.
+- [x] Assemble and test the ALU computation and result-selection network.
+- [ ] Wire instruction fields and reconstruct all immediate formats; verify
+  each connection and sign boundary independently.
+- [ ] Build instruction recognition and control circuits; check full required
+  encoding fields and define unsupported-encoding outcomes.
+- [ ] Add operand/writeback selection and the PC; connect decode, register reads,
+  ALU, and register updates. Execute arithmetic instructions first.
+- [ ] Add branch/jump target selection and alignment outcomes.
+- [ ] Define the RAM/environment decisions, then add loads, stores, and events.
+- [ ] Run encoded instruction programs and check complete state transitions.
 
 For each instruction, end-to-end tests should begin with an encoded 32-bit
 instruction and check the resulting PC, destination, unaffected registers,
