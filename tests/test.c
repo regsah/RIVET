@@ -11,6 +11,7 @@ int main()
     total_failures += test_adder();
     total_failures += test_decoder();
     total_failures += test_comparators();
+    total_failures += test_alu();
     total_failures += test_latch();
     total_failures += test_flip_flop();
     total_failures += test_register();

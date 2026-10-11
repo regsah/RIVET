@@ -22,6 +22,7 @@ Currently implemented:
 - Combinational components, including muxes, demuxes, decoders, adders, and
   equality checks
 - 32-bit signed and unsigned less-than comparators built from the subtractor and gates
+- 32-bit ALU combining arithmetic, bitwise, shift, and comparison circuits through muxes
 - Sequential latch primitives
 - Flip-flops, 32-bit registers, and a register file with mux-based reads and decoded writes
 - Unit tests for core components

@@ -6,6 +6,7 @@
 #include "gates.h"
 #include "bitwise.h"
 #include "combinational.h"
+#include "alu.h"
 #include "latch.h"
 #include "flip-flop.h"
 #include "register.h"
@@ -19,6 +20,7 @@ int test_dmux();
 int test_adder();
 int test_decoder();
 int test_comparators();
+int test_alu(void);
 int test_latch();
 int test_flip_flop();
 int test_register();

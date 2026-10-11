@@ -18,6 +18,7 @@ TEST_SRC = \
 	src/combinational/adder.c \
 	src/combinational/decoder.c \
 	src/combinational/comparators.c \
+	src/combinational/alu.c \
 	src/sequential/latch.c \
 	src/sequential/flip-flop.c \
 	src/sequential/register.c \
@@ -31,6 +32,7 @@ TEST_SRC = \
 	tests/combinational/test_adder.c \
 	tests/combinational/test_decoder.c \
 	tests/combinational/test_comparators.c \
+	tests/combinational/test_alu.c \
 	tests/sequential/test_latch.c \
 	tests/sequential/test_flip-flop.c \
 	tests/sequential/test_register.c \

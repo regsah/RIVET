@@ -40,7 +40,7 @@ reference calculations.
 | Word bitwise operations | Implemented, unit tested | `bitwise_and32`, `bitwise_or32`, `bitwise_xor32` in `src/bitwise/` |
 | Variable shifts | Implemented, unit tested | `bitwise_sll32`, `bitwise_srl32`, `bitwise_sra32` in `src/bitwise/shifts.c` |
 | Signed/unsigned less-than | Implemented, unit tested | `lt32_signed`, `lt32_unsigned` in `src/combinational/comparators.c` |
-| ALU result selection | Pending | Word-wide mux arrangement |
+| ALU result selection | Implemented, unit tested | `alu32` in `src/combinational/alu.c` |
 | Instruction decode and immediates | Pending | Field wiring, validity checks, control signals |
 | Program counter and next-PC selection | Pending | Register, adders, muxes, alignment checks |
 | RAM and load/store interface | Pending | Array storage, access widths, extension, faults |
@@ -72,6 +72,38 @@ a mux selects A's sign when they differ, or the difference's sign when they
 match. This avoids interpreting an overflowed difference as the signed ordering.
 Both return a single bit. Instruction-level set-less-than results will place
 that bit in bit 0 of an otherwise zero word.
+
+The ALU interface is declared in `include/combinational/alu.h`:
+`alu32(A, B, op0, op1, op2, op3)` returns a single word without changing state.
+The control word below is written most-significant bit first, `op3 op2 op1 op0`.
+
+| Control | Operation | Result |
+| --- | --- | --- |
+| 0000 | ADD | A+B, low 32 bits |
+| 0001 | SLL | A shifted left by B[4:0], zero fill |
+| 0010 | SLT | Signed A<B, represented as the word 0 or 1 |
+| 0011 | SLTU | Unsigned A<B, represented as the word 0 or 1 |
+| 0100 | XOR | Bitwise A XOR B |
+| 0101 | SRL | A shifted right by B[4:0], zero fill |
+| 0110 | OR | Bitwise A OR B |
+| 0111 | AND | Bitwise A AND B |
+| 1000 | SUB | A-B, low 32 bits |
+| 1101 | SRA | A shifted right by B[4:0], sign fill |
+
+All other control words return zero. This is an internal ALU convention,
+not illegal-instruction handling. The ALU uses the existing circuits and
+selects each output bit through two 8-input muxes followed by a 2-input mux.
+Only bit 0 of each comparison result is connected to the comparator output;
+the remaining bits are tied low. The adder's carry-out is not exposed as an
+architectural flag.
+
+These control codes are our implementation choice, not complete instruction
+encodings. The future decoder must validate the opcode and required function
+fields before generating them. In particular, instruction bit 30 must not be
+wired indiscriminately to `op3`: a negative ADDI immediate can set that bit
+without requesting subtraction. Loads, stores, and AUIPC can use ADD after
+operand selection; LUI can use a separate writeback path. Branch conditions
+can use the existing equality and less-than circuits outside the result mux.
 
 An existing circuit does not mean an instruction is implemented. Every
 instruction below is currently **Pending**: there is no instruction decoder or
